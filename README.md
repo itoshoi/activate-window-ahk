@@ -1,3 +1,5 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/itoshoi/simple-activate-window/blob/master/LICENSE)
+
 # simple activate window
 simple-active-window allows you to activate window by keyboard shortcut like `alt + l`, `alt + h`.  
 Actevated window become highlighted.
