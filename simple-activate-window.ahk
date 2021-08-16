@@ -3,8 +3,26 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
+HighlightColor = 77DDFF
+; execute highlight
 SetTimer, HighlightActiveWindow, 50
 Return
+
+; key config
+; Shift='+', Ctrl='^', Alt='!', Win='#'
+!h::MoveActivate("l")
+!l::MoveActivate("r")
+!k::MoveActivate("u")
+!j::MoveActivate("d")
+!r::MoveActivate("b")
+
+!m::ToggleMax()
+!+r::Reload
+!q::WinClose, A
+!e::ExitApp
+
+!t::ToggleTransparency()
+
 
 HighlightActiveWindow:
     HighlightActiveWindow()
@@ -83,6 +101,17 @@ MoveActivate(dir)
                 nearestTitle = %title%
             }
         }
+
+        ;move behind
+        if (dir = "b")
+        {
+            WinGetPos, x, y, w, h, %idstr%
+            isBehind := Abs(ay - y) < 100 and Abs(ax - x) < 100
+            if (isBehind)
+            {
+                nearestTitle = %title%
+            }
+        }
     }
     WinActivate, %nearestTitle%
 }
@@ -98,18 +127,14 @@ HighlightActiveWindow(){
 	h:= h + 8
 	x:= x -border_thickness
 	y:= y -border_thickness
-	Gui, Color, 0077FF
+    global HighlightColor
+	Gui, Color, %HighlightColor%
 	Gui, -Caption
 	WinSet, Region, 0-0 %w%-0 %w%-%h% 0-%h% 0-0 %border_thickness%-%border_thickness% %iw%-%border_thickness% %iw%-%ih% %border_thickness%-%ih% %border_thickness%-%border_thickness%
     try
         Gui, Show, w%w% h%h% x%x% y%y% NoActivate, Active Window Highlight
-    WinSet, Transparent, 200, Active Window Highlight
+    WinSet, Transparent, 255, Active Window Highlight
 }
-
-!h::MoveActivate("l")
-!l::MoveActivate("r")
-!k::MoveActivate("u")
-!j::MoveActivate("d")
 
 ToggleMax()
 {
@@ -120,7 +145,11 @@ ToggleMax()
         WinMaximize, A
 }
 
-!m::ToggleMax()
-!r::Reload
-!q::WinClose, A
-!e::ExitApp
+ToggleTransparency(){
+    WinGet, a, Transparent, A
+    if (a = 200)
+        WinSet, Transparent, 255, A
+    else
+        WinSet, Transparent, 200, A
+}
+
