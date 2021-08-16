@@ -16,6 +16,10 @@ activate left window | `alt + h`
 activate right window | `alt + l`
 activate up window | `alt + k`
 activate down window | `alt + j`
+activate behind window | `alt + r`
+toggle maximize | `alt + m`
+toggle transparency | `alt + t`
+close window | `alt + q`
 
 # Recommendation
 Microsoft's [PowerToys](https://github.com/microsoft/PowerToys) is powerful tool for Windows10, which allows you to tiling window management beautifully.
